@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.reimbursement.api.domain.User;
-import com.revature.reimbursement.api.daos.*;
+import com.revature.reimbursement.api.daos.Dao;
 
 
 /**
@@ -60,11 +60,17 @@ public class UserDao implements Dao<User> {
     }
 
     public User getEmployee(String email){
-        User user;
+        User user = new User();
+        user.setEmail(email);
         try{
             PreparedStatement pStatement = connection.prepareStatement("select * from workers where email=(?)");
-
-            ResultSet resultSet = statement.executeQuery("select * from workers where email=(?)");
+            pStatement.setString(1, user.getEmail());
+            ResultSet resultSet = pStatement.executeQuery();
+            resultSet.next();
+            user.setFirstName(resultSet.getString("firstname"));
+            user.setLastName(resultSet.getString("lastname"));
+            user.setId(resultSet.getInt("id"));
+            user.setUserType(resultSet.getString("usertype"));
         } catch(SQLException e) {
 
         }

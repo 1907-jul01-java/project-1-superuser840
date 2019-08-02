@@ -12,9 +12,10 @@ create table workers {
 create table reimbursements {
     id serial primary key,
     approved boolean not null,
-    imageURL text,
+    -- imageurl text,
     description text,
     cost numeric(10,2),
     employee text references workers(email) on delete cascade
 };
 
+-- Populate the things --

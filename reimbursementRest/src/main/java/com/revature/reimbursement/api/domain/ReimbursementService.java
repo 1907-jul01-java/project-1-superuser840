@@ -5,28 +5,24 @@ import java.util.List;
 import com.revature.reimbursement.api.daos.Dao;
 
 /**
- * UserService
+ * ReimbursementService
  */
-public class UserService implements Service<User> {
-    private Dao<User> dao;
+public class ReimbursementService implements Service<Reimbursement> {
+    private Dao<Reimbursement> dao;
 
-    public UserService(Dao<User> dao) {
+    public ReimbursementService(Dao<Reimbursement> dao) {
         this.dao = dao;
     }
 
     @Override
-    public void insert(User User) {
-        this.dao.insert(User);
+    public void insert(Reimbursement reimbursement) {
+        this.dao.insert(reimbursement);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<Reimbursement> getAll() {
         return dao.getAll();
     }
-
-    // public List<User> getAllEmployees(){
-    //     return dao.getAllEmployees();
-    // }
 
     @Override
     public void update() {
