@@ -24,10 +24,6 @@ public class UserService implements Service<User> {
         return dao.getAll();
     }
 
-    // public List<User> getAllEmployees(){
-    //     return dao.getAllEmployees();
-    // }
-
     @Override
     public void update() {
 

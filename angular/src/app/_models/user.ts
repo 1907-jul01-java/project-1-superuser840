@@ -4,6 +4,6 @@
     password: string;
     firstName: string;
     lastName: string;
-    permission: string;
+    userType: string;
     token: string;
 }

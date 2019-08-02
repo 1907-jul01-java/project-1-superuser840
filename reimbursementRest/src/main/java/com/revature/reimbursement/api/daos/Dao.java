@@ -10,7 +10,7 @@ public interface Dao<E> {
 
     List<E> getAll();
 
-    void update();
+    void update(E e);
 
-    void delete();
+    void delete(E e);
 }

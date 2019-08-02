@@ -17,7 +17,8 @@ import com.revature.reimbursement.api.daos.Dao;
  */
 public class UserDao implements Dao<User> {
     Connection connection;
-    
+    private User user = new User();
+
     public UserDao(Connection connection) {
         this.connection = connection;
     }
@@ -25,7 +26,8 @@ public class UserDao implements Dao<User> {
     @Override
     public void insert(User user) {
         try {
-            PreparedStatement pStatement = connection.prepareStatement("insert into workers(firstname, lastname, email, password, usertype) values(?, ?, ?, ?, ?)");
+            PreparedStatement pStatement = connection.prepareStatement(
+                    "insert into workers(firstname, lastname, email, password, usertype) values(?, ?, ?, ?, ?)");
             pStatement.setString(1, user.getFirstName());
             pStatement.setString(2, user.getLastName());
             pStatement.setString(3, user.getEmail());
@@ -47,7 +49,7 @@ public class UserDao implements Dao<User> {
                 user = new User();
                 user.setId(resultSet.getInt("id"));
                 user.setEmail(resultSet.getString("email"));
-                //user.setPassword(resultSet.getString("password"));
+                // user.setPassword(resultSet.getString("password"));
                 user.setFirstName(resultSet.getString("firstname"));
                 user.setLastName(resultSet.getString("lastname"));
                 user.setUserType(resultSet.getString("usertype"));
@@ -59,10 +61,10 @@ public class UserDao implements Dao<User> {
         return workers;
     }
 
-    public User getEmployee(String email){
+    public User getEmployee(String email) {
         User user = new User();
         user.setEmail(email);
-        try{
+        try {
             PreparedStatement pStatement = connection.prepareStatement("select * from workers where email=(?)");
             pStatement.setString(1, user.getEmail());
             ResultSet resultSet = pStatement.executeQuery();
@@ -71,7 +73,7 @@ public class UserDao implements Dao<User> {
             user.setLastName(resultSet.getString("lastname"));
             user.setId(resultSet.getInt("id"));
             user.setUserType(resultSet.getString("usertype"));
-        } catch(SQLException e) {
+        } catch (SQLException e) {
 
         }
         return user;
@@ -79,17 +81,35 @@ public class UserDao implements Dao<User> {
 
     @Override
     public List<User> getAll() {
-       
-        return null;
+        User user;
+        List<User> workers = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from workers where usertype=employee");
+            while (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setEmail(resultSet.getString("email"));
+                // user.setPassword(resultSet.getString("password"));
+                user.setFirstName(resultSet.getString("firstname"));
+                user.setLastName(resultSet.getString("lastname"));
+                user.setUserType(resultSet.getString("usertype"));
+                workers.add(user);
+            }
+        } catch (SQLException e) {
+
+        }
+        return workers;
     }
 
     @Override
-    public void update() {
+    public void update(User user) {
+        this.user = user;
 
     }
 
     @Override
-    public void delete() {
+    public void delete(User user) {
 
     }
 }

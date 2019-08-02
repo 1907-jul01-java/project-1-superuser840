@@ -35,13 +35,13 @@ public class UserController {
 		try (Connection connection = new ConnectionUtil().getConnection()) {
 			UserDao dao = new UserDao(connection);
 			UserService service = new UserService(dao);
-			//users = service.getAllEmployees();
+			users = service.getAll();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		return users;
-	}
+    }
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

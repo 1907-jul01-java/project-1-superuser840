@@ -36,7 +36,9 @@ public class ReimbursementDao implements Dao<Reimbursement> {
         }
     }
 
-    public List<Reimbursement> getAllReimbursements() {
+
+    @Override
+    public List<Reimbursement> getAll() {
         Reimbursement reimbursement;
         List<Reimbursement> reimbursements = new ArrayList<>();
         try {
@@ -62,7 +64,7 @@ public class ReimbursementDao implements Dao<Reimbursement> {
         Reimbursement reimbursement = new Reimbursement();
         reimbursement.setEmployee(employee);
         try{
-            PreparedStatement pStatement = connection.prepareStatement("select * from reimbursements where employee=(?)");
+            PreparedStatement pStatement = connection.prepareStatement("select * from reimbursements where employee=?");
             pStatement.setString(1, reimbursement.getEmployee());
             ResultSet resultSet = pStatement.executeQuery();
             resultSet.next();
@@ -76,19 +78,33 @@ public class ReimbursementDao implements Dao<Reimbursement> {
         return reimbursement;
     }
 
+
     @Override
-    public List<Reimbursement> getAll() {
-       
-        return null;
+    public void update(Reimbursement reimbursement){
+        try {
+            PreparedStatement pStatement = connection.prepareStatement("insert into reimbursements(approved, description, cost, employee) values(?, ?, ?, ?)");
+            pStatement.setBoolean(1, reimbursement.isApproved());
+            pStatement.setString(2, reimbursement.getDescription());
+            pStatement.setFloat(3, reimbursement.getCost());
+            pStatement.setString(4, reimbursement.getEmployee());
+            pStatement.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+
     }
 
     @Override
-    public void update() {
+    public void delete(Reimbursement reimbursement) {
+        try {
+            PreparedStatement pStatement = connection.prepareStatement("delete from reimbursements where email=?");
+            pStatement.setBoolean(1, reimbursement.isApproved());
+            pStatement.setString(2, reimbursement.getDescription());
+            pStatement.setFloat(3, reimbursement.getCost());
+            pStatement.setString(4, reimbursement.getEmployee());
+            pStatement.executeUpdate();
+        } catch (SQLException e) {
 
-    }
-
-    @Override
-    public void delete() {
-
+        }
     }
 }

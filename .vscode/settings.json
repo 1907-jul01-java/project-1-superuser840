@@ -1,3 +1,16 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "sqltools.connections": [
+        {
+            "askForPassword": false,
+            "connectionTimeout": 30,
+            "database": "proj1db",
+            "dialect": "PostgreSQL",
+            "name": "Project1db",
+            "password": "postgres",
+            "port": 5432,
+            "server": "localhost",
+            "username": "postgres"
+        }
+    ]
 }
