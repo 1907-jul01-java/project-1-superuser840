@@ -4,13 +4,17 @@ create table workers {
     id serial primary key,
     firstname text,
     lastname text,
-    email text not null,
+    email text unique not null,
     password text not null,
-    permission integer not null
+    usertype text not null
 };
 
 create table reimbursements {
     id serial primary key,
-    
-
+    approved boolean not null,
+    imageURL text,
+    description text,
+    cost numeric(10,2),
+    employee text references workers(email) on delete cascade
 };
+

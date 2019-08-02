@@ -11,6 +11,10 @@ export class UserService {
         return this.http.get<User[]>(`${config.apiUrl}/users`);
     }
 
+    getUser(id: number) {
+        return this.http.get<User>(`${config.apiURL}/users/${id}`);
+    }
+
     register(user: User) {
         return this.http.post(`${config.apiUrl}/users/register`, user);
     }
